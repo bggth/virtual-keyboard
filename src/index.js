@@ -23,6 +23,5 @@ window.onload = () => {
 
 	container.render();
 
-
 	keyboard.keyDownEvent(0);
 }
