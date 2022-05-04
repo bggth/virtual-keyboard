@@ -1,17 +1,14 @@
 import { OS } from "./OS";
 
-export class KeyboardListener {
-	constructor(keyboard, textarea) {
+export class InputListener {
+	constructor(keyboard) {
 		this.keyboard = keyboard;
-		this.textarea = textarea;
-		let os = new OS();
-		this.os = os.getOSType();
+		this.os = new OS().getOSType();
 	}
 
 	installListeners() {
 		let body = document.querySelector('body');
 		body.addEventListener('keydown', (e) => {
-			console.log(e);
 			e.preventDefault();
 			this.keyboard.onKeyDown(e.code);
 			return false;

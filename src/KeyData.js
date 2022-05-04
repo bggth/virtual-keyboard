@@ -79,8 +79,8 @@ export let keyData = [
 		
 	],
 	[
+		{'code': 'FN', 'width': 10, 'shiftTitles': ['', '', '', '', 'fn' ]},
 		{'code': 'ControlLeft', 'width': 10, 'shiftTitles': ['en', 'EN', 'ru', 'RU', '']},
-		{'code': 'MetaLeft2', 'width': 10, 'shiftTitles': ['', '', '', '', '' ]},
 		{'code': 'AltLeft', 'width': 12, 'shiftTitles': ['', '', '', '', 'alt' ]},
 		{'code': 'MetaLeft', 'width': 10, 'shiftTitles': ['', '', '', '', 'command' ]},
 		{'code': 'Space', 'width': 50, 'shiftTitles': [' ', ' ', ' ', ' ', ' ' ]},

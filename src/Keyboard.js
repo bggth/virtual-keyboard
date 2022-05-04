@@ -1,20 +1,19 @@
 import { Key } from "./Key";
 import { keyData } from "./KeyData";
 import { OS } from "./OS";
-
+import { InputListener } from "./InputListener";
+import { Storage } from "./Storage";
 
 export class Keyboard {
-	constructor(textarea, storage) {
+	constructor(textarea) {
 		this.buttons = null;
 		this.keys = [];
 		this.textarea = textarea;
-		this.storage = storage;
+		this.storage = new Storage();;
 		this.shift = parseInt(this.storage.get('shift', 0));
 		this.lang = parseInt(this.storage.get('lang', 0));
 		this.shiftFlag = false;
-
-		let os = new OS();
-		this.os = os.getOSType();
+		this.os = new OS().getOSType();
 
 		for (let l = 0; l < keyData.length; l++) {
 			let line = [];
@@ -24,6 +23,13 @@ export class Keyboard {
 			}
 			this.keys.push(line);
 		}
+	}
+
+	init() {
+		this.update();
+		this.updateCapsState();	
+		this.inputListener = new InputListener(this);
+		this.inputListener.installListeners();
 	}
 
 	render() {
@@ -53,7 +59,6 @@ export class Keyboard {
 
 	updateCapsState() {
 		let key = this.findKeyByCode('CapsLock');
-		console.log('updateCapsState', key)
 		if (this.shift)
 			key.element.classList.add('button-active');
 		else
@@ -65,6 +70,7 @@ export class Keyboard {
 	onKeyDown(code) {
 		let key = this.findKeyByCode(code);
 		key.element.classList.add('button-active');
+
 		if (code.toString().includes('Shift')) {
 			if(this.shiftFlag == false) {
 				this.shiftFlag = true;
@@ -110,17 +116,13 @@ export class Keyboard {
 	onKeyUp(code) {
 		let key = this.findKeyByCode(code);
 
-		console.log(this.os);	
-
 		if (code.toString().includes('CapsLock')) {
 			if (this.os == 'mac') {
-				console.log('mac capslock')
 				this.shift = this.shift?0:1;
 				this.updateCapsState();
 			}
 			return;
 		}
-
 
 		key.element.classList.remove('button-active');
 
@@ -132,9 +134,6 @@ export class Keyboard {
 			}
 			return;
 		}
-
-		
-
 	}
 
 	findKeyByCode(code) {
