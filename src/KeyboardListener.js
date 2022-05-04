@@ -5,16 +5,28 @@ export class KeyboardListener {
 	}
 
 	installListeners() {
-		const input = document.querySelector('body');
-		input.addEventListener('keydown', (e) => {
-			this.keyboard.onKeyDown(e);
-			//this.textarea.appendText(`{'code': '${e.code}', 'width': 10, 'shiftTitles': ['${e.code}', ,'', '', '', '' ]},\n`);
+		let body = document.querySelector('body');
+		body.addEventListener('keydown', (e) => {
+			e.preventDefault();
+			this.keyboard.onKeyDown(e.code);
+			return false;
 		});
 
-		input.addEventListener('keyup', (e) => {
-			this.keyboard.onKeyUp(e);
+		body.addEventListener('keyup', (e) => {
+			e.preventDefault();
+			this.keyboard.onKeyUp(e.code);
+			return false;
 		});
 
+		let buttons = document.querySelectorAll('.keyboard__button');	
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener('mouseup', (e) => {
+				this.keyboard.onKeyUp(e.target.classList[1].split('-')[2])
+			});
 
+			buttons[i].addEventListener('mousedown', (e) => {
+				this.keyboard.onKeyDown(e.target.classList[1].split('-')[2])
+			});
+		}
 	}
 }

@@ -3,12 +3,14 @@ import { keyData } from "./KeyData";
 
 
 export class Keyboard {
-	constructor(width, height) {
-		this.width = width;
-		this.height = height;
+	constructor(textarea, storage) {
 		this.buttons = null;
 		this.keys = [];
-		this.shift = 1;
+		this.textarea = textarea;
+		this.storage = storage;
+		this.shift = parseInt(this.storage.get('shift', 0));
+		this.lang = parseInt(this.storage.get('lang', 0));
+		this.shiftFlag = false;
 
 		for (let l = 0; l < keyData.length; l++) {
 			let line = [];
@@ -18,42 +20,13 @@ export class Keyboard {
 			}
 			this.keys.push(line);
 		}
-		console.log(this.keys);
-
 	}
-
-	/*widths() {
-		return [
-			[15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-			[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 15],
-			[15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-			[17, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 17],
-			[20, 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 10, 10],
-			[10, 10, 10, 12, 50, 12, 10, 10, 10, 10],
-			
-		]
-	}
-
-	buttonCaptions() {
-		return [
-			// english default
-			[
-				['_esc', '_F1', '_F2', '_F3', '_F4', '_F5', '_F6', '_F7', '_F8', '_F9', '_F10', '_F11', '_F12', ''],
-				['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '_delete'],
-				['_tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
-				['_caps lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', `'`, '_return'],
-				['_shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<<br>,', '><br>.', '/<br>?', '_⯅', '_shift'],
-				['_fn', '_control', '_option', '_command', '', '_command', '_option', '_⯇', '_⯆', '_⯈'],	//⯆
-			],
-		]
-	}*/
 
 	render() {
 		let innerHTML = '';
 		for (let l = 0; l < this.keys.length; l++)
 			innerHTML+=this.renderline(l);
 		return `<div class="keyboard__wrapper">${innerHTML}</div>`;
-
 	}
 
 	renderline(l) {
@@ -67,45 +40,77 @@ export class Keyboard {
 	update() {
 		for (let l = 0; l < this.keys.length; l++)
 			for (let k = 0; k < this.keys[l].length; k++) {
-				this.keys[l][k].update(this.shift);
+				this.keys[l][k].update(this.lang + this.shift);
 		}
 
+		this.storage.set('shift', this.shift);
+		this.storage.set('lang', this.lang);
 	}
 
-	onKeyDown(e) {
-		let elem = this.findKeyElementByCode(e.code);
-		if (e.code.toString().includes('Shift')) {
-			this.shift = 2;
+	onKeyDown(code) {
+		let key = this.findKeyByCode(code);
+		key.element.classList.add('button-active');
+		if (code.toString().includes('Shift')) {
+			if(this.shiftFlag == false) {
+				this.shiftFlag = true;
+				this.shift = this.shift?0:1;
+				this.update();	
+			}
+			return;
+		}
+
+		//Escape
+		if (code.toString().includes('Escape')){
+			this.textarea.setText('');
+			return;
+		}
+
+		//F9
+		if (code.toString().includes('F9')){
+			this.textarea.appendText('\n'+eval(this.textarea.text.split('\n')[this.textarea.text.split('\n').length-1]).toString());
+			return;
+		}
+
+		//Backspace
+		if (code.toString().includes('Backspace')){
+			this.textarea.setText(this.textarea.text.slice(0, this.textarea.text.length-1));
+			return;
+		}
+
+		if (code.toString().includes('CapsLock')){
+			this.shift = this.shift?0:1;
 			this.update();
+			return;
 		}
-			
-	}
 
-	onKeyUp(e) {
-		if (e.code.toString().includes('Shift')) {
-			this.shift = 1;
+		if (code.toString().includes('ControlLeft')){
+			this.lang = this.lang==0?2:0;
 			this.update();
+			return;
+		}
+
+		this.textarea.appendText(key.shiftTitles[this.lang + this.shift]);
+	}
+
+	onKeyUp(code) {
+		let key = this.findKeyByCode(code);
+		key.element.classList.remove('button-active');
+
+		if (code.toString().includes('Shift')) {
+			if (this.shiftFlag == true) {
+				this.shiftFlag = false;
+				this.shift = this.shift?0:1;
+				this.update();	
+			}
+			return;
 		}
 	}
 
-	findKeyElementByCode(code) {
+	findKeyByCode(code) {
 		for (let l = 0; l < this.keys.length; l++)
 		for (let k = 0; k < this.keys[l].length; k++) 
 			if (this.keys[l][k].code==code)
 				return this.keys[l][k];
 		return null;
-	}
-
-
-	keyDownEvent(code) {
-		if (this.buttons == null) {
-			let buttons = document.querySelectorAll('.keyboard__button');
-			for (let i = 0; i < buttons.length; i++)
-				buttons[i].addEventListener('click', this.onButtonClick)
-		}
-	}
-
-	onButtonClick = (e) => {
-		console.log(e);
 	}
 }

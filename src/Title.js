@@ -1,5 +1,5 @@
 export class Title {
 	render() {
-		return `<h1 class=body__title>RSS Virtual Keyboard</h1>`
+		return `<h1 class=body__title>virtual-keyboard</h1>`
 	}
 }

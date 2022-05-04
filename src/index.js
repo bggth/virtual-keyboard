@@ -4,17 +4,15 @@ import { KeyboardListener } from "./KeyboardListener";
 import { Statusbar } from "./Statusbar";
 import { Textarea } from "./Textarea";
 import { Title } from "./Title";
+import { Storage } from "./Storage";
 
 window.onload = () => {
-
+	let storage = new Storage();
 	let container = new Container();
 	let title = new Title();
 	let textarea = new Textarea();
-	let keyboard = new Keyboard(14, 6);
+	let keyboard = new Keyboard(textarea, storage);
 	let statusbar = new Statusbar();
-
-	let keyboardListener = new KeyboardListener(keyboard, textarea);
-	keyboardListener.installListeners();
 
 	container.pushComponent(title);
 	container.pushComponent(textarea);
@@ -23,5 +21,7 @@ window.onload = () => {
 
 	container.render();
 	keyboard.update();
-	keyboard.keyDownEvent(0);
+
+	let keyboardListener = new KeyboardListener(keyboard, textarea);
+	keyboardListener.installListeners();
 }
