@@ -1,5 +1,6 @@
 import { Key } from "./Key";
 import { keyData } from "./KeyData";
+import { OS } from "./OS";
 
 
 export class Keyboard {
@@ -11,6 +12,9 @@ export class Keyboard {
 		this.shift = parseInt(this.storage.get('shift', 0));
 		this.lang = parseInt(this.storage.get('lang', 0));
 		this.shiftFlag = false;
+
+		let os = new OS();
+		this.os = os.getOSType();
 
 		for (let l = 0; l < keyData.length; l++) {
 			let line = [];
@@ -104,6 +108,15 @@ export class Keyboard {
 			}
 			return;
 		}
+
+		if (this.os == 'Mac') {
+			if (code.toString().includes('CapsLock')){
+				this.shift = this.shift?0:1;
+				this.update();
+				return;
+			}
+		}
+
 	}
 
 	findKeyByCode(code) {

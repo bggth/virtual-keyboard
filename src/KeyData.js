@@ -80,11 +80,11 @@ export let keyData = [
 	[
 		{'code': 'ControlLeft', 'width': 10, 'shiftTitles': ['en', 'EN', 'ru', 'RU', '']},
 		{'code': 'MetaLeft2', 'width': 10, 'shiftTitles': ['', '', '', '', '' ]},
-		{'code': 'MetaLeft', 'width': 10, 'shiftTitles': ['', '', '', '', '#' ]},
 		{'code': 'AltLeft', 'width': 12, 'shiftTitles': ['', '', '', '', 'alt' ]},
+		{'code': 'MetaLeft', 'width': 10, 'shiftTitles': ['', '', '', '', '#' ]},
 		{'code': 'Space', 'width': 50, 'shiftTitles': [' ', ' ', ' ', ' ', ' ' ]},
+		{'code': 'MetaRigth', 'width': 10, 'shiftTitles': ['', '', '', '', '' ]},
 		{'code': 'AltRight', 'width': 12, 'shiftTitles': ['', '', '', '', 'alt' ]},
-		{'code': 'ControlRight', 'width': 10, 'shiftTitles': ['', '', '', '', 'ctrl' ]},
 		{'code': 'ArrowLeft', 'width': 10, 'shiftTitles': ['⯇', '⯇', '⯇', '⯇', '⯇' ]},
 		{'code': 'ArrowDown', 'width': 10, 'shiftTitles': ['⯆', '⯆', '⯆', '⯆', '⯆' ]},
 		{'code': 'ArrowRight', 'width': 10, 'shiftTitles': ['⯈', '⯈', '⯈', '⯈', '⯈' ]},
