@@ -20,7 +20,7 @@
 	width: 57px;
 	border-radius: 10px;
 	border-width: 1.5px;
-	//background-color: #f3f4f8;
+	background-color: #f3f4f8;
 	//background: linear-gradient(#f4f5fa, #f3f4f8);
 	border-color: #898a8c;
 	color: #898a8c;
@@ -34,13 +34,12 @@
 	}
 	&:hover {
 		background-color: #e5e5e5;
-<<<<<<< HEAD
-		background-color: #f5f5f5;
-=======
->>>>>>> f07d7f7c796568e7b8c1984c056135e078ea6e9a
+		//background-color: #f5f5f5;
 		cursor: pointer;
 	}
 }
+
+//.button-red
 
 .button-5 {
 	font-size: 12px;

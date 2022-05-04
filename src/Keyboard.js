@@ -1,11 +1,28 @@
+import { Key } from "./Key";
+import { keyData } from "./KeyData";
+
+
 export class Keyboard {
 	constructor(width, height) {
 		this.width = width;
 		this.height = height;
 		this.buttons = null;
+		this.keys = [];
+		this.shift = 1;
+
+		for (let l = 0; l < keyData.length; l++) {
+			let line = [];
+			for (let k = 0; k < keyData[l].length; k++) {
+				let key = new Key(keyData[l][k]);
+				line.push(key);
+			}
+			this.keys.push(line);
+		}
+		console.log(this.keys);
+
 	}
 
-	widths() {
+	/*widths() {
 		return [
 			[15, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
 			[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 15],
@@ -29,50 +46,56 @@ export class Keyboard {
 				['_fn', '_control', '_option', '_command', '', '_command', '_option', '_⯇', '_⯆', '_⯈'],	//⯆
 			],
 		]
-	}
+	}*/
 
 	render() {
 		let innerHTML = '';
-		for (let i = 0; i < this.height; i++)
-			innerHTML+=this.renderLine(i);
+		for (let l = 0; l < this.keys.length; l++)
+			innerHTML+=this.renderline(l);
 		return `<div class="keyboard__wrapper">${innerHTML}</div>`;
+
 	}
 
-	renderLine(line) {
+	renderline(l) {
 		let innerHTML = '';
-		for (let i = 0; i < this.width; i++)
-		{
-			let className = '';
-			className = `button-${this.widths()[line][i]}`;
-			let caption = `${this.buttonCaptions()[0][line][i]}`;
-
-			if (caption[0] == '_'){
-				caption = caption.substring(1);
-				className += ' button-small-title';
-				if (i == 0) {
-					className += ' button-caption-start';
-				}
-				if (i == this.buttonCaptions()[0][line].length-1) {
-					className += ' button-caption-end';
-				}
-			}
-			
-			// /if i
-
-			if (caption=='10') {
-				caption = '';
-			}
-			if (this.widths()[line][i] != undefined)
-				innerHTML+=this.renderButton(caption, className);
+		for (let k = 0; k < this.keys[l].length; k++) {
+			innerHTML += this.keys[l][k].render();
 		}
-			
 		return `<div class="keyboard__line">${innerHTML}</div>`;
 	}
 
-	renderButton(text, className='') {
-		let innerHTML = text;
-		return  `<button class="keyboard__button ${className}" tabindex="-1">${innerHTML}</button>`;
+	update() {
+		for (let l = 0; l < this.keys.length; l++)
+			for (let k = 0; k < this.keys[l].length; k++) {
+				this.keys[l][k].update(this.shift);
+		}
+
 	}
+
+	onKeyDown(e) {
+		let elem = this.findKeyElementByCode(e.code);
+		if (e.code.toString().includes('Shift')) {
+			this.shift = 2;
+			this.update();
+		}
+			
+	}
+
+	onKeyUp(e) {
+		if (e.code.toString().includes('Shift')) {
+			this.shift = 1;
+			this.update();
+		}
+	}
+
+	findKeyElementByCode(code) {
+		for (let l = 0; l < this.keys.length; l++)
+		for (let k = 0; k < this.keys[l].length; k++) 
+			if (this.keys[l][k].code==code)
+				return this.keys[l][k];
+		return null;
+	}
+
 
 	keyDownEvent(code) {
 		if (this.buttons == null) {

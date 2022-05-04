@@ -22,6 +22,6 @@ window.onload = () => {
 	container.pushComponent(statusbar);
 
 	container.render();
-
+	keyboard.update();
 	keyboard.keyDownEvent(0);
 }
