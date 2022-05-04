@@ -76,6 +76,7 @@ export let keyData = [
 		{'code': 'Slash', 'width': 12, 'shiftTitles': ['/', '?', '.', '.', '' ]},
 		{'code': 'ArrowUp', 'width': 10, 'shiftTitles': ['⯅', '⯅', '⯅', '⯅', '⯅' ]},
 		{'code': 'ShiftRight', 'width': 10, 'shiftTitles': ['', '', '', '', 'shift' ]},
+		
 	],
 	[
 		{'code': 'ControlLeft', 'width': 10, 'shiftTitles': ['en', 'EN', 'ru', 'RU', '']},

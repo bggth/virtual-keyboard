@@ -21,6 +21,7 @@ window.onload = () => {
 
 	container.render();
 	keyboard.update();
+	keyboard.updateCapsState();
 
 	let keyboardListener = new KeyboardListener(keyboard, textarea);
 	keyboardListener.installListeners();

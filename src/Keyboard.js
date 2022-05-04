@@ -51,6 +51,17 @@ export class Keyboard {
 		this.storage.set('lang', this.lang);
 	}
 
+	updateCapsState() {
+		let key = this.findKeyByCode('CapsLock');
+		console.log('updateCapsState', key)
+		if (this.shift)
+			key.element.classList.add('button-active');
+		else
+			key.element.classList.remove('button-active');
+		this.update();
+		return;
+	}
+
 	onKeyDown(code) {
 		let key = this.findKeyByCode(code);
 		key.element.classList.add('button-active');
@@ -83,7 +94,7 @@ export class Keyboard {
 
 		if (code.toString().includes('CapsLock')){
 			this.shift = this.shift?0:1;
-			this.update();
+			this.updateCapsState();
 			return;
 		}
 
@@ -98,6 +109,10 @@ export class Keyboard {
 
 	onKeyUp(code) {
 		let key = this.findKeyByCode(code);
+
+		if (code.toString().includes('CapsLock'))
+			return;
+
 		key.element.classList.remove('button-active');
 
 		if (code.toString().includes('Shift')) {
@@ -109,6 +124,7 @@ export class Keyboard {
 			return;
 		}
 
+		/*
 		if (this.os == 'Mac') {
 			if (code.toString().includes('CapsLock')){
 				this.shift = this.shift?0:1;
@@ -116,6 +132,7 @@ export class Keyboard {
 				return;
 			}
 		}
+		*/
 
 	}
 
