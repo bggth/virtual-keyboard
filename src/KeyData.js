@@ -74,7 +74,7 @@ export default [
     { code: 'Comma', width: 10, shiftTitles: [',', '<', 'б', 'Б', ''] },
     { code: 'Period', width: 10, shiftTitles: ['.', '>', 'ю', 'Ю', ''] },
     { code: 'Slash', width: 12, shiftTitles: ['/', '?', '.', ',', ''] },
-    { code: 'ArrowUp', width: 10, shiftTitles: ['⯅', '⯅', '⯅', '⯅', '⯅'] },
+    { code: 'ArrowUp', width: 10, shiftTitles: ['↑', '↑', '↑', '↑', '↑'] },
     { code: 'ShiftRight', width: 10, shiftTitles: ['', '', '', '', 'shift'] },
 
   ],
@@ -86,8 +86,8 @@ export default [
     { code: 'Space', width: 50, shiftTitles: [' ', ' ', ' ', ' ', ' '] },
     { code: 'MetaRight', width: 10, shiftTitles: ['', '', '', '', 'command'] },
     { code: 'AltRight', width: 12, shiftTitles: ['', '', '', '', 'alt'] },
-    { code: 'ArrowLeft', width: 10, shiftTitles: ['⯇', '⯇', '⯇', '⯇', '⯇'] },
-    { code: 'ArrowDown', width: 10, shiftTitles: ['⯆', '⯆', '⯆', '⯆', '⯆'] },
-    { code: 'ArrowRight', width: 10, shiftTitles: ['⯈', '⯈', '⯈', '⯈', '⯈'] },
+    { code: 'ArrowLeft', width: 10, shiftTitles: ['←', '←', '←', '←', '←'] },
+    { code: 'ArrowDown', width: 10, shiftTitles: ['↓', '↓', '↓', '↓', '↓'] },
+    { code: 'ArrowRight', width: 10, shiftTitles: ['→', '→', '→', '→', '→'] },
   ],
 ];

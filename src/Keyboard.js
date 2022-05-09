@@ -112,7 +112,7 @@ export default class {
       return;
     }
 
-    if (code.toString().includes('Space')) {
+    if (code.toString().includes('AltLeft')) {
       if (this.controlLeftFlag) {
         this.lang = this.lang === 0 ? 2 : 0;
         this.update();
