@@ -6,7 +6,6 @@ import Storage from './Storage';
 
 export default class {
   constructor(textarea) {
-    this.buttons = null;
     this.keys = [];
     this.textarea = textarea;
     this.storage = new Storage();
@@ -66,9 +65,11 @@ export default class {
 
   onKeyDown(code) {
     const key = this.findKeyByCode(code);
+    if (!key) { return; }
+
     key.element.classList.add('button-active');
 
-    if (code.toString().includes('Shift')) {
+    if (code.toString().includes('ShiftLeft') || (code.toString().includes('ShiftRight'))) {
       if (this.shiftFlag === false) {
         this.shiftFlag = true;
         this.shift = this.shift ? 0 : 1;
@@ -124,6 +125,7 @@ export default class {
 
   onKeyUp(code) {
     const key = this.findKeyByCode(code);
+    if (!key) { return; }
 
     if (code.toString().includes('CapsLock')) {
       if (this.os === 'mac') {
@@ -135,7 +137,7 @@ export default class {
 
     key.element.classList.remove('button-active');
 
-    if (code.toString().includes('Shift')) {
+    if (code.toString().includes('ShiftLeft') || (code.toString().includes('ShiftRight'))) {
       if (this.shiftFlag === true) {
         this.shiftFlag = false;
         this.shift = this.shift ? 0 : 1;
