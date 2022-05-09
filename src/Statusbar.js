@@ -1,5 +1,9 @@
-export class Statusbar{
-	render() {
-		return `<div class="body__statusbar">made for macos • left control: switch language • f9: eval() line</div>`;
-	}
+export default class {
+  constructor(text) {
+    this.text = text;
+  }
+
+  render() {
+    return `<div class="body__statusbar">${this.text}</div>`;
+  }
 }

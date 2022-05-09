@@ -1,21 +1,21 @@
-import { Container } from "./Container";
-import { Keyboard } from "./Keyboard";
-import { Statusbar } from "./Statusbar";
-import { Textarea } from "./Textarea";
-import { Title } from "./Title";
+import Container from './Container';
+import Keyboard from './Keyboard';
+import Statusbar from './Statusbar';
+import Textarea from './Textarea';
+import Title from './Title';
 
 window.onload = () => {
-	let container = new Container();
-	let title = new Title();
-	let textarea = new Textarea();
-	let keyboard = new Keyboard(textarea);
-	let statusbar = new Statusbar();
+  const container = new Container();
+  const title = new Title('virtual-keyboard');
+  const textarea = new Textarea();
+  const keyboard = new Keyboard(textarea);
+  const statusbar = new Statusbar('made for macos • left control: switch language • f9: eval() line');
 
-	container.pushComponent(title);
-	container.pushComponent(textarea);
-	container.pushComponent(keyboard);
-	container.pushComponent(statusbar);
-	container.render();
+  container.pushComponent(title);
+  container.pushComponent(textarea);
+  container.pushComponent(keyboard);
+  container.pushComponent(statusbar);
+  container.render();
 
-	keyboard.init();
-}
+  keyboard.init();
+};

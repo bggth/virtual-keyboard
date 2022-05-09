@@ -19,12 +19,11 @@
   },
   "homepage": "https://github.com/bggth/vitual-keyboard#readme",
   "devDependencies": {
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2"
-  },
-  "dependencies": {
-    "eslint-config-airbnb-base": "^15.0.0"
   }
 }
