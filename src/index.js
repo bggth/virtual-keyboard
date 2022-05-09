@@ -9,7 +9,7 @@ window.onload = () => {
   const title = new Title('virtual-keyboard');
   const textarea = new Textarea();
   const keyboard = new Keyboard(textarea);
-  const statusbar = new Statusbar('made for macos • left control: switch language • f9: eval() line');
+  const statusbar = new Statusbar('made for macos • left control+space: switch language • f9: eval() line');
 
   container.pushComponent(title);
   container.pushComponent(textarea);

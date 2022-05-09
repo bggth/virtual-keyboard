@@ -13,6 +13,7 @@ export default class {
     this.shift = parseInt(this.storage.get('shift', 0), 10);
     this.lang = parseInt(this.storage.get('lang', 0), 10);
     this.shiftFlag = false;
+    this.controlLeftFlag = false;
     this.os = new OS().getOSType();
 
     for (let l = 0; l < KeyData.length; l += 1) {
@@ -106,9 +107,16 @@ export default class {
     }
 
     if (code.toString().includes('ControlLeft')) {
-      this.lang = this.lang === 0 ? 2 : 0;
-      this.update();
+      this.controlLeftFlag = true;
       return;
+    }
+
+    if (code.toString().includes('Space')) {
+      if (this.controlLeftFlag) {
+        this.lang = this.lang === 0 ? 2 : 0;
+        this.update();
+        return;
+      }
     }
 
     this.textarea.appendText(key.shiftTitles[this.lang + this.shift]);
@@ -133,6 +141,11 @@ export default class {
         this.shift = this.shift ? 0 : 1;
         this.update();
       }
+    }
+
+    if (code.toString().includes('ControlLeft')) {
+      this.controlLeftFlag = false;
+      // return;
     }
   }
 
